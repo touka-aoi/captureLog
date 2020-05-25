@@ -1,6 +1,6 @@
 from pyautogui + win32 + etc. \
 Toka'll create windows capture. \
-as first. \
+as first. 
 1. identify active window.
 2. get active window size and locate that.
 3. capture active window.
