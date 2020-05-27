@@ -1,3 +1,6 @@
+# https://teratail.com/questions/156086
+# https://wynn-blog.com/make-gui-application-with-python?fbclid=IwAR0Hnzz1dMHYfr_FPVSAEpAMNhXG7y_PjR-Z3iIFQvcU_HurvwIuoRS_t7k
+
 import tkinter
 from tkinter import messagebox
 
