@@ -51,15 +51,14 @@ def getBeoreForeWindo():
 
 #画像をとる
 #アクティブ化して、alt+priおす、クリップボードからとってくる。
-#
-#
-#
+#やりたいかんあるけどむつかしいかも ららのとき
+#たすくまねじゃはとれない
 def captureScreen():
     nowTime = datetime.datetime.now()
     myTkWin = win32gui.GetForegroundWindow()
     win32gui.ShowWindow(myTkWin, win32con.SW_HIDE)
-    time.sleep(1)
     beforeActive = getBeoreForeWindo()
+    time.sleep(1)
     beforeActiveTitle = win32gui.GetWindowText(beforeActive)
     te = re.split(" ", beforeActiveTitle)
     firstShepe = te[0]
@@ -82,12 +81,15 @@ def stopingpower():
 def createWindowPop():
     root = tkinter.Tk()
     root.title("rara")
-    root.geometry("100x150")
+    root.geometry("200x150")
+    root.resizable(0, 0)
     # 10倍される？
-    button = tkinter.Button(text="実行ボタン", height=10, width=15, command=captureScreen)
+    button = tkinter.Button(text="実行ボタン", height=5, width=7, command=captureScreen)
     button.place(x=0, y=0)
-    quit_botton = tkinter.Button(text="おわり！", height=10, width=15, command=stopingpower)
+    button.pack(fill="x")
+    quit_botton = tkinter.Button(text="おわり！", height=3, width=5, command=stopingpower)
     quit_botton.place(x=0, y=180)
+    quit_botton.pack(side="bottom")
     root.attributes("-topmost", True)
     root.mainloop()
 
