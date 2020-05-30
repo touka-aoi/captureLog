@@ -19,20 +19,16 @@ import threading
 import time
 import sys
 import queue
+import datetime
 
 global root
 global dataQ
 
-#LIFOかできた！！！
-
+#アクティブウィンドウの取得
 def getForeWindow():
     while True:
-        a = win32gui.GetWindowText(win32gui.GetForegroundWindow())
+        a = win32gui.GetActiveWindow()
         dataQ.put(a)
-        # print(len(threading.enumerate()))
-        # ここ スマートじゃないポイント
-        # print(threading.enumerate())
-        # print(a)
         time.sleep(1)
 
         # 終了措置
@@ -40,22 +36,27 @@ def getForeWindow():
             print("are?")
             sys.exit()
 
+#画像をとる
+#アクティブ化して、alt+priおす、クリップボードからとってくる。
+#
+#
+#
+def captureScreen(maping,Mywindowname):
+    timeNow= datetime.datetime.now()
+    storetime = timeNow.strftime("%y%m%d%H%M%S")
+    sc = pyautogui.screenshot(region=(maping))
+    sc.save("./store/" + Mywindowname + str(storetime) + ".png")
+
+# 終了措置
 def stopingpower():
     sys.exit()
 
+#一秒前のアクティブウィンドゲット
 def getForeWindo():
     a = dataQ.get()
-    b = win32gui.GetWindowRect(win32gui.FindWindow(None, a))
-    print(b)
-    # いけてまうかもしれん, #連打したらバグった あはははははは b[0] b[0] になってたぞ
-    if (b[0] < 0 or b[1] < 0):
-        #一回ずらす 灰天才
-        pyautogui.moveTo(-500,-500)
-        pyautogui.moveTo(b[0], b[1])
-    else:
-        pyautogui.moveTo(b[0],b[1])
-    print(a)
+    return a
 
+#GUI操作
 def createWindowPop():
     root = tkinter.Tk()
     root.title("rara")
@@ -68,9 +69,7 @@ def createWindowPop():
     root.attributes("-topmost", True)
     root.mainloop()
 
-# キューって何？
 
-# root = tkinter.Tk()
 dataQ = queue.LifoQueue()
 
 thread2 = threading.Thread(target=createWindowPop)
@@ -79,7 +78,3 @@ thread1.start()
 thread2.start()
 thread1.join()
 thread2.join()
-
-
-
-#めがいたくなった ねる
